@@ -2,21 +2,26 @@ package ar.edu.itba.sia.init;
 
 import jade.Boot;
 
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 public class JadeInitializer {
 
-	private List<String> arguments;
+	private Collection<String> arguments;
 
 	public JadeInitializer() {
 		arguments = new LinkedList<>();
 	}
 
-	public void setAgents(AgentCmdAgentLineArgument[] agents) {
-		String[] agentsStrings = new String[agents.length];
+	public void setName(String name) {
+		arguments.add("-name");
+		arguments.add(name);
+	}
+	
+	public void setAgents(Collection<AgentCmdAgentLineArgument> agents) {
+		String[] agentsStrings = new String[agents.size()];
 		int i = 0;
 		for (AgentCmdAgentLineArgument agent : agents) {
 			agentsStrings[i++] = agent.getCommand();
