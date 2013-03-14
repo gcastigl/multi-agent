@@ -19,7 +19,7 @@ public class VRepClient {
 			IntWA objectHandles = new IntWA(1);
 			int ret = vrep.simxGetObjects(vrep.sim_handle_all, objectHandles, vrep.simx_opmode_oneshot_wait);
 			if (ret == vrep.simx_error_noerror) {
-				logger.info("Number of objects in the scene: %d" + objectHandles.getArray().length);
+				logger.info("Number of objects in the scene: " + objectHandles.getArray().length);
 				new RobotManager(vrep).run();
 			} else {
 				logger.error("Remote API function call returned with error code: " + ret);
