@@ -1,20 +1,15 @@
-package vrep.client.robot.state;
+package ar.com.sia.multiagent.impl.spherical;
 
-import vrep.client.robot.Robot;
-import vrep.client.robot.RobotState;
+import ar.com.sia.multiagent.base.AgentState;
 
-public class WanderState extends RobotState {
+public class WanderState extends AgentState {
 
 	private final static float STEP = 0.05f;
 	private float t;
 	private float radius;
 	
-	public WanderState(Robot robot) {
-		super(robot);
-	}
-	
 	@Override
-	public void enter() {
+	public void initialize() {
 		t = 0;
 		radius = 2;
 	}
@@ -26,7 +21,7 @@ public class WanderState extends RobotState {
 		position[0] = (float) Math.sin(t) * radius;
 		position[1] = (float) Math.cos(t) * radius;
 		position[2] = 0.25f;
-		robot.setAbsolutePosition(position);
+		// robot.setAbsolutePosition(position);
 	}
 
 }
