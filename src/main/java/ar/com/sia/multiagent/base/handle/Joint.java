@@ -3,15 +3,15 @@ package ar.com.sia.multiagent.base.handle;
 import vrep.server.FloatW;
 import vrep.server.RemoteApi;
 
-public class JointHandle extends Handle {
+public class Joint extends Handle {
 
 	private Float maxTargetPosition;
 	
-	public JointHandle(RemoteApi remoteApi, String agentName, String name) {
+	public Joint(RemoteApi remoteApi, String agentName, String name) {
 		this(remoteApi, agentName, name, null);
 	}
 
-	public JointHandle(RemoteApi remoteApi, String agentName, String name, Float maxTargetPosition) {
+	public Joint(RemoteApi remoteApi, String agentName, String name, Float maxTargetPosition) {
 		super(remoteApi, agentName, name);
 		this.maxTargetPosition = maxTargetPosition;
 	}
