@@ -2,7 +2,7 @@ package ar.com.sia.multiagent.impl.acmr5;
 
 import ar.com.sia.multiagent.base.AgentModel;
 import ar.com.sia.multiagent.base.Steering;
-import ar.com.sia.multiagent.base.handle.JointHandle;
+import ar.com.sia.multiagent.base.handle.Joint;
 
 public class ACMR5Steering implements Steering {
 
@@ -13,7 +13,7 @@ public class ACMR5Steering implements Steering {
 	}
 
 	public void advance() {
-		JointHandle mainJoint = model.getJoint("vJoint");
+		Joint mainJoint = model.getJoint("vJoint");
 		float position = mainJoint.getPosition();
 		float maxJointPosition = mainJoint.getMaxTargetPosition();
 		if (position > maxJointPosition || position < -maxJointPosition) {

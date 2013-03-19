@@ -1,6 +1,7 @@
 package ar.com.sia.multiagent.impl.acmr5.state;
 
 import ar.com.sia.multiagent.base.AgentState;
+import ar.com.sia.multiagent.base.handle.ProximitySensor;
 
 public class ACMR5WanderState extends AgentState {
 
@@ -12,6 +13,7 @@ public class ACMR5WanderState extends AgentState {
 	@Override
 	public void update(long elapsedTime) {
 		agent.getModel().getSteering().advance();
+		((ProximitySensor) agent.getModel().getSensor("proxSensor")).read();
 	}
 
 }
