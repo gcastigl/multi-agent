@@ -13,7 +13,7 @@ public class ACMR5Steering implements Steering {
 	}
 
 	public void advance() {
-		Joint mainJoint = model.getJoint("vJoint");
+		Joint mainJoint = (Joint) model.getHandle("vJoint");
 		float position = mainJoint.getPosition();
 		float maxJointPosition = mainJoint.getMaxTargetPosition();
 		if (position > maxJointPosition || position < -maxJointPosition) {

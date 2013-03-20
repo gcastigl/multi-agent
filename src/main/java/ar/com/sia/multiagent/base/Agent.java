@@ -1,16 +1,17 @@
 package ar.com.sia.multiagent.base;
 
-import vrep.server.RemoteApi;
-
 public class Agent extends RemoteApiClient {
 
 	private String name;
 	private AgentModel model;
 	private AgentState state;
 
-	public Agent(RemoteApi remoteApi, AgentModel model, String name) {
-		super(remoteApi);
+	public Agent(AgentModel model, String name) {
 		this.name = name;
+		this.model = model;
+	}
+
+	public void setModel(AgentModel model) {
 		this.model = model;
 	}
 
@@ -31,7 +32,7 @@ public class Agent extends RemoteApiClient {
 			state.exit();
 		}
 		this.state = state;
-		state.enter(this);
+		state.initialize(this);
 	}
 
 	public AgentState getState() {

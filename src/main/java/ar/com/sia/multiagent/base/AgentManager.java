@@ -3,14 +3,12 @@ package ar.com.sia.multiagent.base;
 import java.util.LinkedList;
 import java.util.List;
 
-import vrep.server.RemoteApi;
-
 public class AgentManager {
 
 	private List<Agent> activeAgents;
 	private boolean finished;
 	
-	public AgentManager(RemoteApi remoteApi) {
+	public AgentManager() {
 		activeAgents = new LinkedList<Agent>();
 	}
 	

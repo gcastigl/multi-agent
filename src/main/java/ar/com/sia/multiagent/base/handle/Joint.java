@@ -1,23 +1,22 @@
 package ar.com.sia.multiagent.base.handle;
 
 import vrep.server.FloatW;
-import vrep.server.RemoteApi;
 
 public class Joint extends Handle {
 
 	private Float maxTargetPosition;
 	
-	public Joint(RemoteApi remoteApi, String agentName, String name) {
-		this(remoteApi, agentName, name, null);
+	public Joint(String name) {
+		this(name, null);
 	}
 
-	public Joint(RemoteApi remoteApi, String agentName, String name, Float maxTargetPosition) {
-		super(remoteApi, agentName, name);
+	public Joint(String name, Float maxTargetPosition) {
+		super(name);
 		this.maxTargetPosition = maxTargetPosition;
 	}
 
 	public void setPosition(float position) {
-		remoteApi.simxSetJointPosition(getHandle(), position, API_OP_MODE);
+		getRemoteApi().simxSetJointPosition(getHandle(), position, API_OP_MODE);
 	}
 	
 	public float getMaxTargetPosition() {
@@ -26,15 +25,15 @@ public class Joint extends Handle {
 
 	public float getPosition() {
 		FloatW positionParam = new FloatW(0);
-		remoteApi.simxGetJointPosition(getHandle(), positionParam, API_OP_MODE);
+		getRemoteApi().simxGetJointPosition(getHandle(), positionParam, API_OP_MODE);
 		return positionParam.getValue();
 	}
 	
 	public void setTargetPosition(float targetPosition) {
-		remoteApi.simxSetJointTargetPosition(getHandle(), targetPosition, API_OP_MODE);
+		getRemoteApi().simxSetJointTargetPosition(getHandle(), targetPosition, API_OP_MODE);
 	}
 	
 	public void setForce(float force) {
-		remoteApi.simxSetJointForce(getHandle(), force, API_OP_MODE);
+		getRemoteApi().simxSetJointForce(getHandle(), force, API_OP_MODE);
 	}
 }

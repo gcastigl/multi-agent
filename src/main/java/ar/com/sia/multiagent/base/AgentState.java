@@ -4,12 +4,12 @@ public abstract class AgentState {
 
 	protected Agent agent;
 
-	public final void enter(Agent agent) {
+	public final void initialize(Agent agent) {
 		this.agent = agent;
-		initialize();
+		enter();
 	}
 
-	public void initialize() {
+	public void enter() {
 	}
 
 	public abstract void update(long elapsedTime);

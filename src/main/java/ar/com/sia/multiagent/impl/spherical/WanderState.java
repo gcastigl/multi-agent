@@ -9,7 +9,7 @@ public class WanderState extends AgentState {
 	private float radius;
 	
 	@Override
-	public void initialize() {
+	public void enter() {
 		t = 0;
 		radius = 2;
 	}
