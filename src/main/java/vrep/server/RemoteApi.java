@@ -31,7 +31,7 @@ package vrep.server;
  */
 public class RemoteApi {
 	static {
-		System.load("/media/Datos/Code/java/vrep-robot/lib/linux/64/remoteApiJava.so");
+		System.load(System.getProperty("user.dir") + "/lib/linux/64/remoteApiJava.so");
 	}
 
 	public native int test(StringWA errorStrings, StringW test,
