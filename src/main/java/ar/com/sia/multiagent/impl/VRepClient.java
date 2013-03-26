@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import ar.com.sia.multiagent.base.AgentManager;
 import ar.com.sia.multiagent.base.ConnectionException;
 import ar.com.sia.multiagent.base.SimulationServer;
-import ar.com.sia.multiagent.impl.acmr5.ACMR5AgentBuilder;
+import ar.com.sia.multiagent.impl.epuck.EPuckAgentBuilder;
 
 public class VRepClient implements Runnable {
 	
@@ -32,7 +32,8 @@ public class VRepClient implements Runnable {
 
 	private AgentManager getAgentmanager() {
 		AgentManager agentManager = new AgentManager();
-		agentManager.register(ACMR5AgentBuilder.build("ACMR"));
+		// agentManager.register(ACMR5AgentBuilder.build("ACMR"));
+		agentManager.register(new EPuckAgentBuilder().build("ePuck"));
 		return agentManager;
 	}
 }

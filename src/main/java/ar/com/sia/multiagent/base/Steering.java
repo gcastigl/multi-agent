@@ -1,11 +1,19 @@
 package ar.com.sia.multiagent.base;
 
-public interface Steering {
+public abstract class Steering<T extends AgentModel> extends RemoteApiClient {
 
-	void setModel(AgentModel model);
+	private T model;
 
-	void advance();
+	public Steering(T model) {
+		this.model = model;
+	}
 
-	void rotate(float degrees);
+	public T getModel() {
+		return model;
+	}
+
+	public abstract void advance();
+
+	public abstract void rotate(float degrees);
 
 }

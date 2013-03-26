@@ -5,6 +5,7 @@ import vrep.server.FloatW;
 public class Joint extends Handle {
 
 	private Float maxTargetPosition;
+	protected float targetPosition;
 	
 	public Joint(String name) {
 		this(name, null);
@@ -16,7 +17,7 @@ public class Joint extends Handle {
 	}
 
 	public void setPosition(float position) {
-		getRemoteApi().simxSetJointPosition(getHandle(), position, API_OP_MODE);
+		getRemoteApi().simxSetJointPosition(getHandle(), position, MODE_NON_BLOCKING);
 	}
 	
 	public float getMaxTargetPosition() {
@@ -25,15 +26,24 @@ public class Joint extends Handle {
 
 	public float getPosition() {
 		FloatW positionParam = new FloatW(0);
-		getRemoteApi().simxGetJointPosition(getHandle(), positionParam, API_OP_MODE);
+		getRemoteApi().simxGetJointPosition(getHandle(), positionParam, MODE_NON_BLOCKING);
 		return positionParam.getValue();
 	}
 	
-	public void setTargetPosition(float targetPosition) {
-		getRemoteApi().simxSetJointTargetPosition(getHandle(), targetPosition, API_OP_MODE);
+	public void setTargetPosition(float targetPosition, int modeType) {
+		this.targetPosition = targetPosition; 
+		getRemoteApi().simxSetJointTargetPosition(getHandle(), adjustValue(targetPosition), modeType);
 	}
 	
-	public void setForce(float force) {
-		getRemoteApi().simxSetJointForce(getHandle(), force, API_OP_MODE);
+	public float getTargetPosition() {
+		return targetPosition;
+	}
+	
+	public void setMaxForce(float force) {
+		getRemoteApi().simxSetJointForce(getHandle(), force, MODE_NON_BLOCKING);
+	}
+	
+	protected float adjustValue(float value) {
+		return value / MAGIC_FACTOR;
 	}
 }

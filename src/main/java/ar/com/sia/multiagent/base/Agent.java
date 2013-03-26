@@ -6,9 +6,8 @@ public class Agent extends RemoteApiClient {
 	private AgentModel model;
 	private AgentState state;
 
-	public Agent(AgentModel model, String name) {
+	public Agent(String name) {
 		this.name = name;
-		this.model = model;
 	}
 
 	public void setModel(AgentModel model) {

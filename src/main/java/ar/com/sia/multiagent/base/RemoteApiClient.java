@@ -4,9 +4,10 @@ import vrep.server.RemoteApi;
 
 public abstract class RemoteApiClient {
 
-	protected static final int API_OP_MODE = RemoteApi.simx_opmode_oneshot_wait;
-
-	public RemoteApi getRemoteApi() {
+	protected static final int MODE_NON_BLOCKING = RemoteApi.simx_opmode_oneshot;
+	protected static final int MODE_BLOCKING = RemoteApi.simx_opmode_oneshot_wait;
+	
+	protected RemoteApi getRemoteApi() {
 		return SimulationServer.getInstance().getRemoteApi();
 	}
 
