@@ -42,6 +42,25 @@ public class Handle extends RemoteApiClient {
 	public void setAbsolutePosition(float[] position) {
 		getRemoteApi().simxSetObjectPosition(getHandle(), -1, new FloatWA(position), MODE_NON_BLOCKING);
 	}
+
+	public void addOrientation(float alpha, float beta, float gamma) {
+		float[] orientation = getOrientation();
+		orientation[0] += alpha;
+		orientation[1] += beta;
+		orientation[2] += gamma;
+		setOrientation(orientation);
+	}
+
+	public void setOrientation(float[] orientation) {
+		FloatWA eulerAngles = new FloatWA(orientation);
+		getRemoteApi().simxSetObjectOrientation(getHandle(), getHandle(), eulerAngles, MODE_NON_BLOCKING);
+	}
+
+	public float[] getOrientation() {
+		FloatWA eulerAngles = new FloatWA(new float[] {});
+		getRemoteApi().simxGetObjectOrientation(getHandle(), getHandle(), eulerAngles, MODE_NON_BLOCKING);
+		return eulerAngles.getArray();
+	}
 	
 	public int fetch(String agentName) {
 		IntW handleParam = new IntW(0);

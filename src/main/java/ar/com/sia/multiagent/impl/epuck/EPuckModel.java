@@ -2,6 +2,7 @@ package ar.com.sia.multiagent.impl.epuck;
 
 import ar.com.sia.multiagent.base.Agent;
 import ar.com.sia.multiagent.base.AgentModel;
+import ar.com.sia.multiagent.base.handle.Handle;
 import ar.com.sia.multiagent.base.handle.ProximitySensor;
 import ar.com.sia.multiagent.base.handle.RotationalJoint;
 
@@ -41,5 +42,10 @@ public class EPuckModel extends AgentModel {
 	
 	public ProximitySensor getProximitySensor(Sensor sensor) {
 		return (ProximitySensor) getHandle("proxSensor" + sensor.id);
+	}
+	
+	@Override
+	protected Handle getMainHandle() {
+		throw new IllegalStateException("not implemented");
 	}
 }

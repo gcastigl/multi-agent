@@ -35,4 +35,19 @@ public abstract class AgentModel extends RemoteApiClient {
 	public Steering<? extends AgentModel> getSteering() {
 		return steering;
 	}
+
+	public float[] getPosition() {
+		return getMainHandle().getAbsolutePosition();
+	}
+
+	public void setPosition(float[] position) {
+		getMainHandle().setAbsolutePosition(position);
+	}
+
+	public void rotate(float alpha, float beta, float gamma) {
+		getMainHandle().addOrientation(alpha, beta, gamma);
+	}
+
+	protected abstract Handle getMainHandle();
+
 }

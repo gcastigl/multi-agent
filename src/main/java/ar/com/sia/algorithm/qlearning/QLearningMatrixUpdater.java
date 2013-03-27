@@ -1,4 +1,4 @@
-package ar.com.sia.multiagent.qlerning;
+package ar.com.sia.algorithm.qlearning;
 
 public class QLearningMatrixUpdater {
 
