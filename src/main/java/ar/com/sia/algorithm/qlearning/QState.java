@@ -2,6 +2,6 @@ package ar.com.sia.algorithm.qlearning;
 
 public interface QState {
 
-	QState apply(QAction action);
+	QState apply(QAction action) throws NotApplicableException;
 
 }

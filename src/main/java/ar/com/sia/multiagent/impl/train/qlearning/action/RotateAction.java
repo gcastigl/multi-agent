@@ -13,4 +13,22 @@ public class RotateAction implements QAction {
 	public boolean isRight() {
 		return right;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof RotateAction)) {
+			return false;
+		}
+		return right == ((RotateAction) obj).right;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Boolean.valueOf(right).hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return "Rotate: " + (right ? "right" : "left");
+	}
 }

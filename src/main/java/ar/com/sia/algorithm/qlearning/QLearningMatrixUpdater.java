@@ -27,5 +27,16 @@ public class QLearningMatrixUpdater {
 		}
 		return max;
 	}
+
+	public QMatrix getMatrix() {
+		return values;
+	}
 	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("alpha: " + alpha + " | gamma: " + gamma + "\n");
+		builder.append(values.toString());
+		return builder.toString();
+	}
 }
