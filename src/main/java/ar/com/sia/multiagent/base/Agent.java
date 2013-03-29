@@ -3,11 +3,16 @@ package ar.com.sia.multiagent.base;
 public class Agent extends RemoteApiClient {
 
 	private String name;
+	private Brain brain;
 	private AgentModel model;
 	private AgentState state;
 
 	public Agent(String name) {
 		this.name = name;
+	}
+
+	public void setBrain(Brain brain) {
+		this.brain = brain;
 	}
 
 	public void setModel(AgentModel model) {

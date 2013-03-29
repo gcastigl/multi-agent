@@ -52,13 +52,16 @@ public class QMatrix {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("default: " + defaultvalue + "\n");
+		int size = 0;
+		builder.append("Default value: " + defaultvalue + "\n{\n");
 		for (Entry<QState, Map<QAction, Float>> stateEntry : values.entrySet()) {
-			builder.append("state " + stateEntry.getKey() + "\n");
 			for (Entry<QAction, Float> actionEntry : stateEntry.getValue().entrySet()) {
-				builder.append("\t" + actionEntry.getKey() + " => " + actionEntry.getValue() + "\n");
+				size++;
+				builder.append("\t[" + stateEntry.getKey() + ", " + actionEntry.getKey() + "] = " + actionEntry.getValue() + "\n");
 			}
 		}
+		builder.append("\n}\nSize: " + size);
+		builder.append("\n\n");
 		return builder.toString();
 	}
 }
