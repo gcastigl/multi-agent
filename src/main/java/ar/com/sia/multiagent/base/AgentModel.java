@@ -3,6 +3,7 @@ package ar.com.sia.multiagent.base;
 import java.util.HashMap;
 import java.util.Map;
 
+import ar.com.sia.multiagent.base.api.Perception;
 import ar.com.sia.multiagent.base.handle.Handle;
 
 public abstract class AgentModel extends RemoteApiClient {
@@ -15,6 +16,9 @@ public abstract class AgentModel extends RemoteApiClient {
 		this.agent = agent;
 		handles = new HashMap<String, Handle>();
 		initialize();
+		Handle mainHandle = new Handle(null);
+		mainHandle.fetch(agent.getName());
+		handles.put(agent.getName(), mainHandle);
 	}
 
 	protected abstract void initialize();
@@ -44,10 +48,18 @@ public abstract class AgentModel extends RemoteApiClient {
 		getMainHandle().setAbsolutePosition(position);
 	}
 
+	public void addPosition(float x, float y, float z) {
+		getMainHandle().addPosition(x, y, z);
+	}
+	
 	public void rotate(float alpha, float beta, float gamma) {
 		getMainHandle().addOrientation(alpha, beta, gamma);
 	}
 
-	protected abstract Handle getMainHandle();
+	protected Handle getMainHandle() {
+		return getHandle(agent.getName());
+	}
+
+	public abstract Perception sense();
 
 }

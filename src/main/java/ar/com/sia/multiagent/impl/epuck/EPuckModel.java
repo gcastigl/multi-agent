@@ -2,7 +2,7 @@ package ar.com.sia.multiagent.impl.epuck;
 
 import ar.com.sia.multiagent.base.Agent;
 import ar.com.sia.multiagent.base.AgentModel;
-import ar.com.sia.multiagent.base.handle.Handle;
+import ar.com.sia.multiagent.base.api.Perception;
 import ar.com.sia.multiagent.base.handle.ProximitySensor;
 import ar.com.sia.multiagent.base.handle.RotationalJoint;
 
@@ -32,6 +32,11 @@ public class EPuckModel extends AgentModel {
 		setSteering(new EPuckSteering(this));
 	}
 
+	@Override
+	public Perception sense() {
+		throw new IllegalStateException("Not implemented");
+	}
+
 	public RotationalJoint getRightWheel() {
 		return (RotationalJoint) getHandle("rightJoint");
 	}
@@ -44,8 +49,4 @@ public class EPuckModel extends AgentModel {
 		return (ProximitySensor) getHandle("proxSensor" + sensor.id);
 	}
 	
-	@Override
-	protected Handle getMainHandle() {
-		throw new IllegalStateException("not implemented");
-	}
 }

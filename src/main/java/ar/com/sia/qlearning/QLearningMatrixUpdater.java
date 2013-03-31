@@ -1,4 +1,8 @@
-package ar.com.sia.algorithm.qlearning;
+package ar.com.sia.qlearning;
+
+import ar.com.sia.multiagent.base.api.Action;
+import ar.com.sia.multiagent.base.api.AgentState;
+
 
 public class QLearningMatrixUpdater {
 
@@ -11,27 +15,21 @@ public class QLearningMatrixUpdater {
 		this.values = values;
 	}
 
-	public void updateValue(QState state, QAction action, float reinforcement) {
+	public void updateValue(AgentState state, Action action, float reinforcement) {
 		float prevValue = values.get(state, action);
+		values.getBestAction(state);
 		float updatedVAlue = prevValue + alpha * (reinforcement + gamma * maxValue(state) - prevValue);
 		values.set(state, action, updatedVAlue);
 	}
-	
-	public float maxValue(QState state) {
-		Float max = null;
-		for (QAction action : values.getActions()) {
-			float value = values.get(state, action);
-			if (max == null || value > max) {
-				max = value;
-			}
-		}
-		return max;
+
+	public float maxValue(AgentState state) {
+		return values.getBestActionValue(state);
 	}
 
 	public QMatrix getMatrix() {
 		return values;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

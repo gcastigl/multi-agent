@@ -35,12 +35,12 @@ public class Handle extends RemoteApiClient {
 
 	public float[] getAbsolutePosition() {
 		FloatWA position = new FloatWA(0);
-		getRemoteApi().simxGetObjectPosition(getHandle(), -1, position, MODE_NON_BLOCKING);
+		getRemoteApi().simxGetObjectPosition(getHandle(), -1, position, MODE_BLOCKING);
 		return position.getArray();
 	}
 
 	public void setAbsolutePosition(float[] position) {
-		getRemoteApi().simxSetObjectPosition(getHandle(), -1, new FloatWA(position), MODE_NON_BLOCKING);
+		getRemoteApi().simxSetObjectPosition(getHandle(), -1, new FloatWA(position), MODE_BLOCKING);
 	}
 
 	public void addOrientation(float alpha, float beta, float gamma) {
@@ -51,21 +51,29 @@ public class Handle extends RemoteApiClient {
 		setOrientation(orientation);
 	}
 
+	public void addPosition(float x, float y, float z) {
+		float[] position = getAbsolutePosition();
+		position[0] += x;
+		position[1] += y;
+		position[2] += z;
+		setAbsolutePosition(position);
+	}
+	
 	public void setOrientation(float[] orientation) {
 		FloatWA eulerAngles = new FloatWA(orientation);
-		getRemoteApi().simxSetObjectOrientation(getHandle(), getHandle(), eulerAngles, MODE_NON_BLOCKING);
+		getRemoteApi().simxSetObjectOrientation(getHandle(), getHandle(), eulerAngles, MODE_BLOCKING);
 	}
 
 	public float[] getOrientation() {
 		FloatWA eulerAngles = new FloatWA(new float[] {});
-		getRemoteApi().simxGetObjectOrientation(getHandle(), getHandle(), eulerAngles, MODE_NON_BLOCKING);
+		getRemoteApi().simxGetObjectOrientation(getHandle(), getHandle(), eulerAngles, MODE_BLOCKING);
 		return eulerAngles.getArray();
 	}
 	
 	public int fetch(String agentName) {
 		IntW handleParam = new IntW(0);
-		String fullname = agentName + "_" + getName();
-		int result = getRemoteApi().simxGetObjectHandle(fullname, handleParam, MODE_NON_BLOCKING);
+		String fullname = agentName + ((name == null) ? "" : "_" + name);
+		int result = getRemoteApi().simxGetObjectHandle(fullname, handleParam, MODE_BLOCKING);
 		if (result != RemoteApi.simx_error_noerror) {
 			throw new IllegalStateException("Object handle for " + fullname + " does not exists");
 		}
@@ -74,4 +82,7 @@ public class Handle extends RemoteApiClient {
 		return handle;
 	}
 
+	protected float adjustValue(float value) {
+		return value / MAGIC_FACTOR;
+	}
 }

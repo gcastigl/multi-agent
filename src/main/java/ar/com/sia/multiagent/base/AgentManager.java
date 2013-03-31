@@ -5,41 +5,27 @@ import java.util.List;
 
 public class AgentManager {
 
-	private List<Agent> activeAgents;
+	private List<Agent> agents;
 	private boolean finished;
-	
+
 	public AgentManager() {
-		activeAgents = new LinkedList<Agent>();
+		agents = new LinkedList<Agent>();
 	}
-	
+
 	public void register(Agent agent) {
-		activeAgents.add(agent);
+		agents.add(agent);
 	}
-	
+
 	public void run() {
-		long startTime, elapsedTime = 0;
-		while (!finished) {
-			startTime = System.currentTimeMillis();
-			for (Agent agent : activeAgents) {
-				agent.update(elapsedTime);
-			}
-			sleep(50);
-			elapsedTime = System.currentTimeMillis() - startTime;
+		for (Agent agent : agents) {
+			agent.start();
 		}
 	}
-	
-	private void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
+
 	public void setFinished() {
 		this.finished = true;
 	}
-	
+
 	public boolean isFinished() {
 		return finished;
 	}

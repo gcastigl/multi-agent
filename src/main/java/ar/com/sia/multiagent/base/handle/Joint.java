@@ -42,8 +42,5 @@ public class Joint extends Handle {
 	public void setMaxForce(float force) {
 		getRemoteApi().simxSetJointForce(getHandle(), force, MODE_NON_BLOCKING);
 	}
-	
-	protected float adjustValue(float value) {
-		return value / MAGIC_FACTOR;
-	}
+
 }

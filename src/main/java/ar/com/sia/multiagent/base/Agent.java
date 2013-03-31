@@ -1,26 +1,25 @@
 package ar.com.sia.multiagent.base;
 
+import ar.com.sia.multiagent.base.api.Action;
+import ar.com.sia.multiagent.base.api.Perception;
+import ar.com.sia.multiagent.base.program.AgentProgram;
+
 public class Agent extends RemoteApiClient {
 
 	private String name;
-	private Brain brain;
+	private AgentProgram agentProgram;
 	private AgentModel model;
-	private AgentState state;
 
 	public Agent(String name) {
 		this.name = name;
 	}
-
-	public void setBrain(Brain brain) {
-		this.brain = brain;
+	
+	public void setProgram(AgentProgram agentProgram) {
+		this.agentProgram = agentProgram;
 	}
 
 	public void setModel(AgentModel model) {
 		this.model = model;
-	}
-
-	public void update(long elapsedTime) {
-		state.update(elapsedTime);
 	}
 
 	public String getName() {
@@ -31,16 +30,23 @@ public class Agent extends RemoteApiClient {
 		return model;
 	}
 
-	public void setState(AgentState state) {
-		if (state != null) {
-			state.exit();
-		}
-		this.state = state;
-		state.initialize(this);
+	public void start() {
+		agentProgram.run(Agent.this);
+		/*
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				agentProgram.run(Agent.this);
+			}
+		}).start();
+		*/
 	}
 
-	public AgentState getState() {
-		return state;
+	public Perception sense() {
+		return model.sense();
 	}
 
+	public void execute(Action action) {
+		action.apply(this);
+	}
 }
