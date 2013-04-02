@@ -20,12 +20,17 @@ public abstract class TrainerAgentProgram<T extends AgentState> extends AgentPro
 	@Override
 	protected void start() {
 		for (int episode = 0; episodes == -1 || episode < episodes; episode++) {
+			setupEpisode();
 			for (int iteration = 0; iteration < iterations; iteration++) {
-				T curentState = getCurrentState();
-				Action action = deliverate(curentState);
+				logger.info("===============| episode: " + (episode + 1) + " / iteration: " + (iteration + 1) + " |===================");
+				T currentState = getCurrentState();
+				logger.info("Current state: " + currentState);
+				Action action = deliverate(currentState);
+				logger.info("Action: " + action);
 				agent.execute(action);
 				T nextState = getCurrentState();
-				updateTraining(curentState, nextState, action);
+				logger.info("New state: " + nextState);
+				updateTraining(currentState, nextState, action);
 				if (isEndOfEpisode(nextState)) {
 					logger.info("End of iteration: " + nextState);
 					break;
@@ -33,6 +38,8 @@ public abstract class TrainerAgentProgram<T extends AgentState> extends AgentPro
 			}
 		}
 	}
+
+	protected abstract void setupEpisode();
 
 	protected abstract T getCurrentState();
 

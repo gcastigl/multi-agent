@@ -66,7 +66,7 @@ public class Handle extends RemoteApiClient {
 
 	public float[] getOrientation() {
 		FloatWA eulerAngles = new FloatWA(new float[] {});
-		getRemoteApi().simxGetObjectOrientation(getHandle(), getHandle(), eulerAngles, MODE_BLOCKING);
+		getRemoteApi().simxGetObjectOrientation(getHandle(), -1, eulerAngles, MODE_BLOCKING);
 		return eulerAngles.getArray();
 	}
 	

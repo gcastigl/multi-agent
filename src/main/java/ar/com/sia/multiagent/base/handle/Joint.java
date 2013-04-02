@@ -26,7 +26,7 @@ public class Joint extends Handle {
 
 	public float getPosition() {
 		FloatW positionParam = new FloatW(0);
-		getRemoteApi().simxGetJointPosition(getHandle(), positionParam, MODE_NON_BLOCKING);
+		getRemoteApi().simxGetJointPosition(getHandle(), positionParam, MODE_BLOCKING);
 		return positionParam.getValue();
 	}
 	

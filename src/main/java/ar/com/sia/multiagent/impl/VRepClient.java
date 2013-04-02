@@ -5,8 +5,8 @@ import org.apache.log4j.Logger;
 import ar.com.sia.multiagent.base.AgentManager;
 import ar.com.sia.multiagent.base.ConnectionException;
 import ar.com.sia.multiagent.base.SimulationServer;
+import ar.com.sia.multiagent.impl.cuboid.program.CuboidTrainer;
 import ar.com.sia.multiagent.impl.epuck.EPuckAgentBuilder;
-import ar.com.sia.multiagent.impl.program.Trainer;
 
 public class VRepClient implements Runnable {
 	
@@ -15,7 +15,7 @@ public class VRepClient implements Runnable {
 	public static void main(String[] args) {
 		new VRepClient().run();
 	}
-	
+
 	public void run() {
 		logger.trace("Program started");
 		SimulationServer server = SimulationServer.getInstance();
@@ -26,7 +26,7 @@ public class VRepClient implements Runnable {
 			return;
 		}
 		logger.info("Number of objects in the scene: " + server.getAllObjectsHandle().length);
-		new Trainer().run();
+		new CuboidTrainer().run();
 		server.disconnect();
 		logger.trace("Program ended");
 	}

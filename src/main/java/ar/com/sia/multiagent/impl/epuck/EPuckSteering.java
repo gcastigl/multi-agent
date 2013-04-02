@@ -28,9 +28,9 @@ public class EPuckSteering extends Steering<EPuckModel> {
 	}
 
 	@Override
-	public void rotate(float degrees) {
+	public void rotate(float alpha, float beta, float gamma) {
 		getRemoteApi().simxPauseCommunication(true);
-		if (degrees > 0) {
+		if (gamma > 0) {
 			leftWheel.setVelocity(0);
 			rightWheel.rotate(95, MODE_BLOCKING);
 			rightWheel.rotate(95, MODE_BLOCKING);

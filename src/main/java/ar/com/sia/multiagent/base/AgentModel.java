@@ -52,10 +52,14 @@ public abstract class AgentModel extends RemoteApiClient {
 		getMainHandle().addPosition(x, y, z);
 	}
 	
-	public void rotate(float alpha, float beta, float gamma) {
+	public void addRotation(float alpha, float beta, float gamma) {
 		getMainHandle().addOrientation(alpha, beta, gamma);
 	}
 
+	public float[] getRotation() {
+		return getMainHandle().getOrientation();
+	}
+	
 	protected Handle getMainHandle() {
 		return getHandle(agent.getName());
 	}

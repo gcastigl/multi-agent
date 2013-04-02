@@ -16,5 +16,12 @@ public class MathUtil {
 		int index = (int) Math.random() * collection.size();
 		return new LinkedList<T>(collection).get(index);
 	}
-
+	
+	public static float module(float[] v1) {
+		float x = v1[0];
+		float y = v1[1];
+		float z = v1[2];
+		return (float) Math.sqrt(x * x + y * y + z * z);
+	}
+	
 }
