@@ -4,24 +4,14 @@ import vrep.server.FloatW;
 
 public class Joint extends Handle {
 
-	private Float maxTargetPosition;
 	protected float targetPosition;
-	
-	public Joint(String name) {
-		this(name, null);
-	}
 
-	public Joint(String name, Float maxTargetPosition) {
+	public Joint(String name) {
 		super(name);
-		this.maxTargetPosition = maxTargetPosition;
 	}
 
 	public void setPosition(float position) {
 		getRemoteApi().simxSetJointPosition(getHandle(), position, MODE_NON_BLOCKING);
-	}
-	
-	public float getMaxTargetPosition() {
-		return maxTargetPosition;
 	}
 
 	public float getPosition() {
@@ -32,7 +22,7 @@ public class Joint extends Handle {
 	
 	public void setTargetPosition(float targetPosition, int modeType) {
 		this.targetPosition = targetPosition; 
-		getRemoteApi().simxSetJointTargetPosition(getHandle(), adjustValue(targetPosition), modeType);
+		getRemoteApi().simxSetJointTargetPosition(getHandle(), targetPosition, modeType);
 	}
 	
 	public float getTargetPosition() {

@@ -1,22 +1,26 @@
 package ar.com.sia.multiagent.base.handle;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import vrep.server.FloatWA;
 import vrep.server.IntW;
 import vrep.server.RemoteApi;
 import ar.com.sia.multiagent.base.RemoteApiClient;
+import ar.com.sia.util.StringUtil;
 
 public class Handle extends RemoteApiClient {
 
 	private static final Logger logger = Logger.getLogger(Handle.class);
 
-	protected final static float MAGIC_FACTOR = 57.3f;
-
 	private Integer handle;
 	private String name;
-
+	private List<Handle> childs;
+	
 	public Handle(String name) {
+		childs = new LinkedList<Handle>();
 		this.name = name;
 		handle = null;
 	}
@@ -25,12 +29,12 @@ public class Handle extends RemoteApiClient {
 		return handle;
 	}
 
-	public void setHandle(int handle) {
-		this.handle = handle;
-	}
-
 	public String getName() {
 		return name;
+	}
+	
+	public void addChild(Handle handle) {
+		childs.add(handle);
 	}
 
 	public float[] getAbsolutePosition() {
@@ -51,6 +55,13 @@ public class Handle extends RemoteApiClient {
 		setOrientation(orientation);
 	}
 
+	public void addOrientationRecursive(float alpha, float beta, float gamma) {
+		addOrientation(alpha, beta, gamma);
+		for (Handle child : childs) {
+			child.addOrientationRecursive(alpha, beta, gamma);
+		}
+	}
+
 	public void addPosition(float x, float y, float z) {
 		float[] position = getAbsolutePosition();
 		position[0] += x;
@@ -60,14 +71,13 @@ public class Handle extends RemoteApiClient {
 	}
 	
 	public void setOrientation(float[] orientation) {
-		adjustValues(orientation);
 		FloatWA eulerAngles = new FloatWA(orientation);
-		getRemoteApi().simxSetObjectOrientation(getHandle(), -1, eulerAngles, MODE_BLOCKING);
+		getRemoteApi().simxSetObjectOrientation(getHandle(), RemoteApi.sim_handle_parent, eulerAngles, MODE_BLOCKING);
 	}
 
 	public float[] getOrientation() {
 		FloatWA eulerAngles = new FloatWA(new float[] {});
-		getRemoteApi().simxGetObjectOrientation(getHandle(), -1, eulerAngles, MODE_BLOCKING);
+		getRemoteApi().simxGetObjectOrientation(getHandle(), RemoteApi.sim_handle_parent, eulerAngles, MODE_BLOCKING);
 		return eulerAngles.getArray();
 	}
 	
@@ -80,23 +90,28 @@ public class Handle extends RemoteApiClient {
 		}
 		handle = handleParam.getValue();
 		logger.info("Handle " + fullname + " has id: " + handle);
+		for (Handle child : childs) {
+			child.fetch(agentName);
+		}
 		return handle;
 	}
 
-	protected float adjustValue(float value) {
-		return value / MAGIC_FACTOR;
-	}
-	
-	protected void adjustValues(float[] values) {
-		values[0] = adjustValue(values[0]);
-		values[1] = adjustValue(values[1]);
-		values[2] = adjustValue(values[2]);
-	}
-	
 	public int getChildHandle(int index) {
 		IntW childObjectHandle = new IntW(0);
 		getRemoteApi().simxGetObjectChild(getHandle(), index, childObjectHandle, MODE_BLOCKING);
 		return childObjectHandle.getValue();
 	}
 
+	public Handle getChild(String name) {
+		if (StringUtil.equals(this.name, name)) {
+			return this;
+		}
+		for (Handle child : childs) {
+			Handle handle = child.getChild(name);
+			if (handle != null) {
+				return handle;
+			}
+		}
+		return null;
+	}
 }

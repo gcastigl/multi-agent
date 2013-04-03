@@ -8,6 +8,7 @@ import ar.com.sia.multiagent.base.SimulationServer;
 import ar.com.sia.multiagent.base.Steering;
 import ar.com.sia.multiagent.base.handle.Handle;
 import ar.com.sia.multiagent.base.handle.RotationalJoint;
+import ar.com.sia.util.MathUtil;
 
 public class CuboidSteering extends Steering<CuboidModel> {
 
@@ -37,7 +38,7 @@ public class CuboidSteering extends Steering<CuboidModel> {
 
 	@Override
 	public void advance() {
-		setVelocity(WHEEL_VELOCITY);
+		setVelocity(MathUtil.toRadians(WHEEL_VELOCITY));
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class CuboidSteering extends Steering<CuboidModel> {
 			@Override
 			public void execute() {
 				Handle mainHanlde = getModel().getMainHandle();
-				mainHanlde.addOrientation(alpha, beta, gamma);
+				mainHanlde.addOrientationRecursive(alpha, beta, gamma);
 			}
 		});
 	}

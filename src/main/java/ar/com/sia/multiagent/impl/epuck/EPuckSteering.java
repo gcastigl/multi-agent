@@ -2,6 +2,7 @@ package ar.com.sia.multiagent.impl.epuck;
 
 import ar.com.sia.multiagent.base.Steering;
 import ar.com.sia.multiagent.base.handle.RotationalJoint;
+import ar.com.sia.util.MathUtil;
 
 public class EPuckSteering extends Steering<EPuckModel> {
 	
@@ -18,28 +19,20 @@ public class EPuckSteering extends Steering<EPuckModel> {
 
 	@Override
 	public void advance() {
-		rightWheel.setVelocity(100);
-		leftWheel.setVelocity(100);
+		rightWheel.setVelocity(MathUtil.toRadians(100));
+		leftWheel.setVelocity(MathUtil.toRadians(100));
 		getRemoteApi().simxPauseCommunication(true);
-		rightWheel.rotate(-100, MODE_NON_BLOCKING);
-		leftWheel.rotate(-100, MODE_NON_BLOCKING);
 		getRemoteApi().simxPauseCommunication(false);
 		System.out.println("ciclo " + rightWheel.getPosition());
 	}
 
 	@Override
 	public void rotate(float alpha, float beta, float gamma) {
-		getRemoteApi().simxPauseCommunication(true);
 		if (gamma > 0) {
 			leftWheel.setVelocity(0);
-			rightWheel.rotate(95, MODE_BLOCKING);
-			rightWheel.rotate(95, MODE_BLOCKING);
 		} else {
-			leftWheel.setVelocity(100);
-			leftWheel.rotate(95, MODE_BLOCKING);
-			leftWheel.rotate(95, MODE_BLOCKING);
+			leftWheel.setVelocity(MathUtil.toRadians(100));
 		}
-		getRemoteApi().simxPauseCommunication(false);
 	}
 	
 	@Override

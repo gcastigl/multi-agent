@@ -2,6 +2,7 @@ package ar.com.sia.multiagent.impl.cuboid.program;
 
 import ar.com.sia.multiagent.base.Agent;
 import ar.com.sia.multiagent.base.api.Action;
+import ar.com.sia.util.MathUtil;
 
 public class RotateAction implements Action {
 
@@ -13,7 +14,7 @@ public class RotateAction implements Action {
 
 	@Override
 	public void apply(Agent agent) {
-		agent.getModel().getSteering().rotate(0, 0, 90);
+		agent.getModel().getSteering().rotate(0, 0, MathUtil.toRadians(90));
 	}
 
 	@Override

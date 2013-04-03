@@ -17,6 +17,16 @@ public class MathUtil {
 		return new LinkedList<T>(collection).get(index);
 	}
 	
+	public static float toRadians(float degree) {
+		return degree / 57.29f;
+	}
+	
+	protected void toRadians(float[] degrees) {
+		degrees[0] = toRadians(degrees[0]);
+		degrees[1] = toRadians(degrees[1]);
+		degrees[2] = toRadians(degrees[2]);
+	}
+	
 	public static float module(float[] v1) {
 		float x = v1[0];
 		float y = v1[1];

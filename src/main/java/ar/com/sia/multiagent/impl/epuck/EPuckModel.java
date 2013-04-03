@@ -3,6 +3,7 @@ package ar.com.sia.multiagent.impl.epuck;
 import ar.com.sia.multiagent.base.Agent;
 import ar.com.sia.multiagent.base.AgentModel;
 import ar.com.sia.multiagent.base.api.Perception;
+import ar.com.sia.multiagent.base.handle.Handle;
 import ar.com.sia.multiagent.base.handle.ProximitySensor;
 import ar.com.sia.multiagent.base.handle.RotationalJoint;
 
@@ -22,13 +23,13 @@ public class EPuckModel extends AgentModel {
 	}
 
 	@Override
-	protected void initialize() {
-		add(new RotationalJoint("rightJoint"));
-		add(new RotationalJoint("leftJoint"));
-		add(new ProximitySensor("proxSensor" + Sensor.LEFT.id));
-		add(new ProximitySensor("proxSensor" + Sensor.FRONT_LEFT.id));
-		add(new ProximitySensor("proxSensor" + Sensor.FRONT_RIGHT.id));
-		add(new ProximitySensor("proxSensor" + Sensor.RIGHT.id));
+	protected void initialize(Handle mainHandle) {
+		mainHandle.addChild(new RotationalJoint("rightJoint"));
+		mainHandle.addChild(new RotationalJoint("leftJoint"));
+		mainHandle.addChild(new ProximitySensor("proxSensor" + Sensor.LEFT.id));
+		mainHandle.addChild(new ProximitySensor("proxSensor" + Sensor.FRONT_LEFT.id));
+		mainHandle.addChild(new ProximitySensor("proxSensor" + Sensor.FRONT_RIGHT.id));
+		mainHandle.addChild(new ProximitySensor("proxSensor" + Sensor.RIGHT.id));
 		setSteering(new EPuckSteering(this));
 	}
 
