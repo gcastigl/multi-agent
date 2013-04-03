@@ -8,6 +8,12 @@ public class WalkAction implements Action {
 	@Override
 	public void apply(Agent agent) {
 		agent.getModel().getSteering().advance();
+		try {
+			Thread.sleep(3 * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		agent.getModel().getSteering().stop();
 	}
 	
 	@Override

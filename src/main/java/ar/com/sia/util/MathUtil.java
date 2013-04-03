@@ -13,7 +13,7 @@ public class MathUtil {
 	}
 
 	public static <T> T random(Collection<T> collection) {
-		int index = (int) Math.random() * collection.size();
+		int index = (int) (Math.random() * collection.size());
 		return new LinkedList<T>(collection).get(index);
 	}
 	

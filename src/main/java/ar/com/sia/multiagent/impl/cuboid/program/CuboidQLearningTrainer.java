@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
+import ar.com.sia.multiagent.base.SimulationServer;
 import ar.com.sia.multiagent.base.api.Action;
 import ar.com.sia.multiagent.base.program.TrainerAgentProgram;
 import ar.com.sia.multiagent.impl.cuboid.CuboidPerception;
@@ -31,8 +32,9 @@ public class CuboidQLearningTrainer extends TrainerAgentProgram<CuboidState> {
 		logger.info("Iterations: " + iterations);
 	}
 
+	@Override
 	protected void setupEpisode() {
-		agent.getModel().setPosition(new float[] {0, 0, 0.05f});
+		SimulationServer.getInstance().restart();
 	}
 	
 	@Override

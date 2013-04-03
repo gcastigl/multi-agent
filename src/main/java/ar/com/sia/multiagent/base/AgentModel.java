@@ -60,7 +60,7 @@ public abstract class AgentModel extends RemoteApiClient {
 		return getMainHandle().getOrientation();
 	}
 	
-	protected Handle getMainHandle() {
+	public Handle getMainHandle() {
 		return getHandle(agent.getName());
 	}
 

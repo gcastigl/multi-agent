@@ -34,6 +34,14 @@ public class Vector3d {
 		return (float) Math.sqrt(x * x + y * y + z * z);
 	}
 
+	public Vector3d minus(Vector3d other) {
+		Vector3d clone = clone();
+		clone.x -= other.x;
+		clone.y -= other.y;
+		clone.z -= other.z;
+		return clone;
+	}
+
 	public Vector3d multiply(float value) {
 		Vector3d clone = clone();
 		clone.x *= value;

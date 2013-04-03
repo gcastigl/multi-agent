@@ -25,8 +25,10 @@ public class VRepClient implements Runnable {
 			logger.fatal("Failed connecting to remote API server");
 			return;
 		}
+		server.start();
 		logger.info("Number of objects in the scene: " + server.getAllObjectsHandle().length);
 		new CuboidTrainer().run();
+		server.stop();
 		server.disconnect();
 		logger.trace("Program ended");
 	}

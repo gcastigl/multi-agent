@@ -12,6 +12,8 @@ public abstract class Steering<T extends AgentModel> extends RemoteApiClient {
 		return model;
 	}
 
+	public abstract void stop();
+
 	public abstract void advance();
 
 	public abstract void rotate(float alpha, float beta, float gamma);

@@ -10,7 +10,7 @@ import ar.com.sia.multiagent.impl.cuboid.CuboidAgentBuilder;
 public class CuboidTrainer {
 
 	public void run() {
-		Agent agent = new CuboidAgentBuilder().build("Cuboid");
+		Agent agent = new CuboidAgentBuilder().build("Car");
 		agent.setProgram(new CuboidQLearningTrainer(100, 100, getActions()));
 		agent.start();
 	}

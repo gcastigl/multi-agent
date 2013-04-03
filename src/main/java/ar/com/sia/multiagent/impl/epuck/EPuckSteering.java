@@ -41,4 +41,9 @@ public class EPuckSteering extends Steering<EPuckModel> {
 		}
 		getRemoteApi().simxPauseCommunication(false);
 	}
+	
+	@Override
+	public void stop() {
+		
+	}
 }

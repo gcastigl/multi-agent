@@ -60,8 +60,9 @@ public class Handle extends RemoteApiClient {
 	}
 	
 	public void setOrientation(float[] orientation) {
+		adjustValues(orientation);
 		FloatWA eulerAngles = new FloatWA(orientation);
-		getRemoteApi().simxSetObjectOrientation(getHandle(), getHandle(), eulerAngles, MODE_BLOCKING);
+		getRemoteApi().simxSetObjectOrientation(getHandle(), -1, eulerAngles, MODE_BLOCKING);
 	}
 
 	public float[] getOrientation() {
@@ -85,4 +86,17 @@ public class Handle extends RemoteApiClient {
 	protected float adjustValue(float value) {
 		return value / MAGIC_FACTOR;
 	}
+	
+	protected void adjustValues(float[] values) {
+		values[0] = adjustValue(values[0]);
+		values[1] = adjustValue(values[1]);
+		values[2] = adjustValue(values[2]);
+	}
+	
+	public int getChildHandle(int index) {
+		IntW childObjectHandle = new IntW(0);
+		getRemoteApi().simxGetObjectChild(getHandle(), index, childObjectHandle, MODE_BLOCKING);
+		return childObjectHandle.getValue();
+	}
+
 }
