@@ -47,7 +47,7 @@ public class CuboidQLearningTrainer extends TrainerAgentProgram<CuboidState> {
 
 	private float getReward(CuboidState next) {
 		CuboidPerception perception = (CuboidPerception) next.getPerception();
-		if (perception.isSensing() && perception.getDistanceToObject() < 0.5f) {
+		if (perception.isSensing() && perception.getDistanceToObject() < 0.3f) {
 			return -100;
 		}
 		return 0;
@@ -82,7 +82,7 @@ public class CuboidQLearningTrainer extends TrainerAgentProgram<CuboidState> {
 		if (!state.getPerception().isSensing()) {
 			return false; 
 		}
-		return state.getPerception().getDistanceToObject() < 0.5f;
+		return state.getPerception().getDistanceToObject() < 0.1f;
 	}
 
 }
